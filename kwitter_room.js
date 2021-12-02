@@ -13,6 +13,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+    user_name = localStorage.getItem("user_name");
+    room_name = localStorage.getItem("room_name");
+
 function addRoom(){
 
       room_name = document.getElementById("room_name").value;
@@ -43,3 +46,22 @@ function redirectToRoomName(name){
      window.location = "kwitter_page.html";
 
 }
+
+function logout(){
+
+      localStorage.removeItem("room_name");
+      localStorage.removeItem("user_name");
+      window.location = "index.html";
+ 
+ }
+ 
+ function send(){
+ 
+       msg = document.getElementById("messege").value;
+       firebase.database().ref(room_name).push({
+             name: user_name,
+             messege: msg,
+             like:0
+       });
+ 
+ }
